@@ -52,9 +52,9 @@ SERIAL_CONSOLES = "115200;ttyAMA0"
 # PREFERRED_VERSION_linux-raspberrypi = "5.4.%"
 
 
-# DL_DIR = "/src/oe"
-# SSTATE_DIR = "/oe6/rpi/sstate-cache"
-# TMPDIR = "/oe6/rpi/tmp-dunfell"
+DL_DIR = "${HOME}/.oe6/sources"
+SSTATE_DIR = "${HOME}/.oe6/rpi/sstate-cache"
+TMPDIR = "${HOME}/.oe6/rpi/tmp-dunfell"
 
 DISTRO = "poky"
 PACKAGE_CLASSES = "package_ipk"

@@ -3,19 +3,20 @@
 POKY_BBLAYERS_CONF_VERSION = "2"
 
 BBPATH = "${TOPDIR}"
+PRBASE = "${TOPDIR}/../.."
 BBFILES ?= ""
 
 BBLAYERS ?= " \
-    ${HOME}/poky-dunfell/meta \
-    ${HOME}/poky-dunfell/meta-poky \
-    ${HOME}/poky-dunfell/meta-openembedded/meta-oe \
-    ${HOME}/poky-dunfell/meta-openembedded/meta-multimedia \
-    ${HOME}/poky-dunfell/meta-openembedded/meta-networking \
-    ${HOME}/poky-dunfell/meta-openembedded/meta-perl \
-    ${HOME}/poky-dunfell/meta-openembedded/meta-python \
-    ${HOME}/poky-dunfell/meta-qt5 \
-    ${HOME}/poky-dunfell/meta-raspberrypi \
-    ${HOME}/poky-dunfell/meta-security \
-    ${HOME}/poky-dunfell/meta-jumpnow \
-    ${HOME}/rpi/meta-rpi \
+    ${PRBASE}/poky-dunfell/meta \
+    ${PRBASE}/poky-dunfell/meta-poky \
+    ${PRBASE}/poky-dunfell/meta-openembedded/meta-oe \
+    ${PRBASE}/poky-dunfell/meta-openembedded/meta-multimedia \
+    ${PRBASE}/poky-dunfell/meta-openembedded/meta-networking \
+    ${PRBASE}/poky-dunfell/meta-openembedded/meta-perl \
+    ${PRBASE}/poky-dunfell/meta-openembedded/meta-python \
+    ${PRBASE}/poky-dunfell/meta-qt5 \
+    ${PRBASE}/poky-dunfell/meta-raspberrypi \
+    ${PRBASE}/poky-dunfell/meta-security \
+    ${PRBASE}/poky-dunfell/meta-jumpnow \
+    ${PRBASE}/rpi/meta-rpi \
 "
