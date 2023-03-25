@@ -21,7 +21,7 @@ VIRTUAL-RUNTIME_init_manager = "sysvinit"
 
 MACHINE_FEATURES_remove = "apm"
 
-IMAGE_FSTYPES = "tar.xz"
+IMAGE_FSTYPES = "wic"
 
 # Choose the board you are building for
 #MACHINE = "raspberrypi"
@@ -67,7 +67,12 @@ SDKMACHINE = "x86_64"
 
 # for a root passwd, change jumpnowtek below to your password
 INHERIT += "extrausers"
-EXTRA_USERS_PARAMS = "usermod -P jumpnowtek root; "
+EXTRA_USERS_PARAMS = "usermod -P helsinova root; "
+
+RPI_EXTRA_CONFIG = ' \n \
+    # Raspberry Pi 3\" Enable j-tag pins \n \
+    enable_jtag_gpio=1 \n \
+    '
 
 # this will force root to change password on first login
 INHERIT += "chageusers"
