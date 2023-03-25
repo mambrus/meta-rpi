@@ -24,30 +24,32 @@ do_install() {
 
     set -x
     tmp="${SERIAL_CONSOLES}"
-    for i in $tmp
-    do
-	j=`echo ${i} | sed s/\;/\ /g`
-	l=`echo ${i} | sed -e 's/tty//' -e 's/^.*;//' -e 's/;.*//'`
-	label=`echo $l | sed 's/.*\(....\)/\1/'`
-	echo "$label:12345:respawn:${base_bindir}/start_getty ${j} vt102" >> ${D}${sysconfdir}/inittab
+    for i in $tmp; do
+        j=`echo ${i} | sed s/\;/\ /g`
+        l=`echo ${i} | sed -e 's/tty//' -e 's/^.*;//' -e 's/;.*//'`
+        label=`echo $l | sed 's/.*\(....\)/\1/'`
+        echo "$label:12345:respawn:${base_bindir}/start_getty ${j} vt102" >> \
+            ${D}${sysconfdir}/inittab
     done
 
     if [ "${USE_VT}" = "1" ]; then
-        cat <<EOF >>${D}${sysconfdir}/inittab
-# ${base_sbindir}/getty invocations for the runlevels.
-#
-# The "id" field MUST be the same as the last
-# characters of the device (after "tty").
-#
-# Format:
-#  <id>:<runlevels>:<action>:<process>
-#
-
-EOF
+        cat <<-EOF >>${D}${sysconfdir}/inittab
+			# ${base_sbindir}/getty invocations for the runlevels.
+			#
+			# The "id" field MUST be the same as the last
+			# characters of the device (after "tty").
+			#
+			# Format:
+			#  <id>:<runlevels>:<action>:<process>
+			#
+		EOF
 
         for n in ${SYSVINIT_ENABLED_GETTYS}
         do
-            echo "$n:12345:respawn:${base_sbindir}/getty 38400 tty$n" >> ${D}${sysconfdir}/inittab
+            p=$(echo 'echo $(('${n}' - 1))' | sh)
+            bbnote "getty for ttyS${p}"
+            echo "$n:12345:respawn:${base_sbindir}/getty" \
+                "115200 ttyS${p}" >> ${D}${sysconfdir}/inittab
         done
         echo "" >> ${D}${sysconfdir}/inittab
     fi
@@ -69,7 +71,10 @@ if [ -e /proc/consoles ]; then
 		j=`echo ${i} | sed -e s/^.*\;//g -e s/\:.*//g`
 		k=`echo ${i} | sed s/^.*\://g`
 		if [ -z "`grep ${j} /proc/consoles`" ]; then
-			if [ -z "${k}" ] || [ -z "`grep ${k} /proc/consoles`" ] || [ ! -e /dev/${j} ]; then
+			if  [ -z "${k}" ] ||
+                [ -z "`grep ${k} /proc/consoles`" ] ||
+                [ ! -e /dev/${j} ]
+            then
 				sed -i -e /^.*${j}\ /d -e /^.*${j}$/d /etc/inittab
 			fi
 		fi
