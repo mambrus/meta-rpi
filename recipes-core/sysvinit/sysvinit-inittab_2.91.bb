@@ -48,7 +48,7 @@ do_install() {
         do
             p=$(echo 'echo $(('${n}' - 1))' | sh)
             bbnote "getty for ttyS${p}"
-            echo "$n:12345:respawn:${base_sbindir}/getty" \
+            echo "${p}:12345:respawn:${base_sbindir}/getty" \
                 "115200 ttyS${p}" >> ${D}${sysconfdir}/inittab
         done
         echo "" >> ${D}${sysconfdir}/inittab
