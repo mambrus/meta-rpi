@@ -54,7 +54,7 @@ ENABLE_RPI3_SERIAL_CONSOLE = "1"
 
 DL_DIR = "${HOME}/.oe6/sources"
 SSTATE_DIR = "${HOME}/.oe6/rpi/sstate-cache"
-TMPDIR = "${HOME}/.oe6/rpi/tmp-dunfell"
+TMPDIR = "${HOME}/.oe6/rpi/tmp-dunfell-${MACHINE_ARCH}"
 
 DISTRO = "poky"
 PACKAGE_CLASSES = "package_ipk"
